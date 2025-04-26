@@ -88,7 +88,7 @@ const Invoice = ({ data, onEdit, misc }) => {
                   <td className="py-0.5 text-gray-600 text-xs">GUEST NAME</td>
                   <td className="text-xs">
                     {traveller.last_name.toUpperCase()}/
-                    {traveller.first_name.toUpperCase()} {traveller.mr_name || "Mr"}
+                    {traveller.first_name.toUpperCase()} {traveller.mr_name || "MR"}
                   </td>
                 </tr>
                 <tr>
