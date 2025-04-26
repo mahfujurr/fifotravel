@@ -334,7 +334,7 @@ const TravelForm = ({ onSubmit, onPreview, initialData, setMisc, misc }) => {
                   id="mr_name"
                   name="mr_name"
                   type="text"
-                  value={traveller.mr_name || "Mr"}
+                  value={traveller.mr_name || "MR"}
                   onChange={handleTravellerChange}
                   autoComplete="given-name"
                   className={inputClass}
