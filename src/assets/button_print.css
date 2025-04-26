@@ -1,0 +1,6 @@
+/* styles.css */
+@media print {
+  .print-hide {
+    display: none !important;
+  }
+}
