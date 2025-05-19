@@ -440,7 +440,7 @@ const Invoice = ({ data, onEdit, misc }) => {
               <tbody className="text-xs">
                 <tr>
                   <td className="border p-1.5">{misc.misc_text}</td>
-                  <td className="border p-1.5">{misc.misc_date}</td>
+                  <td className="border p-1.5">{formatDateToDMY(misc.misc_date)}</td>
                   <td className="border p-1.5">{misc.destination_from}</td>
                   <td className="border p-1.5">{misc.destination_to}</td>
                   <td className="border p-1.5">{misc.time_boarding}</td>
