@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import TravelForm from "./components/TravelForm"
-import Invoice from "./components/Invoice"
-import "./index.css"
+import { useState } from "react";
+import TravelForm from "./components/TravelForm";
+import Invoice from "./components/Invoice";
+import "./index.css";
 function App() {
   const [formData, setFormData] = useState({
     traveller: {
@@ -15,25 +15,30 @@ function App() {
     flights: [],
     accommodations: [],
     hirecompanies: [],
-  })
-  const [isPreview, setIsPreview] = useState(false)
+  });
+  const [isPreview, setIsPreview] = useState(false);
   const [misc, setMisc] = useState({
     misc_text: "",
+    misc_date: "",
+    destination_from: "",
+    destination_to: "",
+    time_boarding: "",
+    time_arriving: "",
     misc_cost: "",
     GST: true,
-  })
+  });
   const handleFormSubmit = (data) => {
-    setFormData(data)
-    setIsPreview(false)
-  }
+    setFormData(data);
+    setIsPreview(false);
+  };
 
   const handlePreview = (data) => {
-    setFormData(data)
-    setIsPreview(true)
-  }
+    setFormData(data);
+    setIsPreview(true);
+  };
   const handleEdit = () => {
-    setIsPreview(false)
-  }
+    setIsPreview(false);
+  };
 
   return (
     <div className="p-4 bg-white text-black fontpoppins">
@@ -46,10 +51,15 @@ function App() {
           setMisc={setMisc}
         />
       ) : (
-        <Invoice data={formData} onEdit={handleEdit} misc={misc} setMisc={setMisc} />
+        <Invoice
+          data={formData}
+          onEdit={handleEdit}
+          misc={misc}
+          setMisc={setMisc}
+        />
       )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -274,6 +274,11 @@ const TravelForm = ({ onSubmit, onPreview, initialData, setMisc, misc }) => {
     setHirecompanies([emptyHireCompany]);
     setMisc({
       misc_text: "",
+      misc_date: "",
+      destination_from: "",
+      destination_to: "",
+      time_boarding: "",
+      time_arriving: "",
       misc_cost: "",
       GST: true,
     });
@@ -1023,6 +1028,86 @@ const TravelForm = ({ onSubmit, onPreview, initialData, setMisc, misc }) => {
               </div>
               <div>
                 <label
+                  htmlFor="misc_date"
+                  className="block text-sm font-medium text-gray-700 tracking-wide mb-1"
+                >
+                  Date
+                </label>
+                <input
+                  id="misc_date"
+                  name="misc_date"
+                  type="date"
+                  value={misc.misc_date}
+                  onChange={handleChangeMisc}
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="destination_from"
+                  className="block text-sm font-medium text-gray-700 tracking-wide mb-1"
+                >
+                  Destination From
+                </label>
+                <input
+                  id="destination_from"
+                  name="destination_from"
+                  type="text"
+                  value={misc.destination_from}
+                  onChange={handleChangeMisc}
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="destination_to"
+                  className="block text-sm font-medium text-gray-700 tracking-wide mb-1"
+                >
+                  Destination To
+                </label>
+                <input
+                  id="destination_to"
+                  name="destination_to"
+                  type="text"
+                  value={misc.destination_to}
+                  onChange={handleChangeMisc}
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="time_boarding"
+                  className="block text-sm font-medium text-gray-700 tracking-wide mb-1"
+                >
+                  Time Boarding
+                </label>
+                <input
+                  id="time_boarding"
+                  name="time_boarding"
+                  type="time"
+                  value={misc.time_boarding}
+                  onChange={handleChangeMisc}
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="time_arriving"
+                  className="block text-sm font-medium text-gray-700 tracking-wide mb-1"
+                >
+                  Time Arriving
+                </label>
+                <input
+                  id="time_arriving"
+                  name="time_arriving"
+                  type="time"
+                  value={misc.time_arriving}
+                  onChange={handleChangeMisc}
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label
                   htmlFor="misc_cost"
                   className="block text-sm font-medium text-gray-700 tracking-wide mb-1"
                 >
@@ -1040,6 +1125,7 @@ const TravelForm = ({ onSubmit, onPreview, initialData, setMisc, misc }) => {
               </div>
             </div>
           </div>
+
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
@@ -1067,14 +1153,14 @@ const TravelForm = ({ onSubmit, onPreview, initialData, setMisc, misc }) => {
             <button
               type="reset"
               onClick={handleReset}
-               className="border border-rose-500 p-2 px-5 rounded-xl bg-white hover:bg-rose-100 text-sm font-medium text-rose-600 hover:text-rose-800 transition-all duration-300 active:scale-90 flex items-center justify-center gap-1"
+              className="border border-rose-500 p-2 px-5 rounded-xl bg-white hover:bg-rose-100 text-sm font-medium text-rose-600 hover:text-rose-800 transition-all duration-300 active:scale-90 flex items-center justify-center gap-1"
             >
               Reset
             </button>
             <button
               type="button"
               onClick={handlePreview}
-               className="border border-indigo-500 p-2 px-5 rounded-xl bg-white hover:bg-indigo-100 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-all duration-300 active:scale-90 flex items-center justify-center gap-1"
+              className="border border-indigo-500 p-2 px-5 rounded-xl bg-white hover:bg-indigo-100 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-all duration-300 active:scale-90 flex items-center justify-center gap-1"
             >
               Preview
             </button>

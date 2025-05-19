@@ -88,7 +88,8 @@ const Invoice = ({ data, onEdit, misc }) => {
                   <td className="py-0.5 text-gray-600 text-xs">GUEST NAME</td>
                   <td className="text-xs">
                     {traveller.last_name.toUpperCase()}/
-                    {traveller.first_name.toUpperCase()} {traveller.mr_name || "MR"}
+                    {traveller.first_name.toUpperCase()}{" "}
+                    {traveller.mr_name || "MR"}
                   </td>
                 </tr>
                 <tr>
@@ -127,85 +128,92 @@ const Invoice = ({ data, onEdit, misc }) => {
         </div>
 
         {/* Flights Details */}
-        {flights && flights.length > 0 && (
-          <div className="mt-4">
-            <h3 className="font-bold mb-2 text-sm">Flight Details</h3>
-            <table className="w-full border text-sm">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="border p-1.5 text-left text-xs font-medium">
-                    FLIGHT
-                  </th>
-                  <th className="border p-1.5 text-left text-xs font-medium">
-                    DEPART
-                  </th>
-                  <th className="border p-1.5 text-left text-xs font-medium">
-                    ARRIVE
-                  </th>
-                  <th className="border p-1.5 text-left text-xs font-medium">
-                    CABIN CLASS / SEAT
-                  </th>
-                  <th className="border p-1.5 text-left text-xs font-medium">
-                    INCLUDED BAGGAGE
-                  </th>
-                  <th className="border p-1.5 text-left text-xs font-medium">
-                    COST
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="text-xs">
-                {flights.map((flight, index) => (
-                  <tr key={index}>
-                    <td className="border p-1.5">
-                      <div>{flight.flight_number}</div>
-                      <div className="text-gray-500">Ok to fly</div>
-                      <div className="text-gray-500">Operated by:</div>
-                      <div>{flight.airline}</div>
+        {flights &&
+          flights.length > 0 &&
+          flights.reduce(
+            (total, flight) => total + Number(flight.cost || 0),
+            0
+          ) > 0 && (
+            <div className="mt-4">
+              <h3 className="font-bold mb-2 text-sm">Flight Details</h3>
+              <table className="w-full border text-sm">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="border p-1.5 text-left text-xs font-medium">
+                      FLIGHT
+                    </th>
+                    <th className="border p-1.5 text-left text-xs font-medium">
+                      DEPART
+                    </th>
+                    <th className="border p-1.5 text-left text-xs font-medium">
+                      ARRIVE
+                    </th>
+                    <th className="border p-1.5 text-left text-xs font-medium">
+                      CABIN CLASS / SEAT
+                    </th>
+                    <th className="border p-1.5 text-left text-xs font-medium">
+                      INCLUDED BAGGAGE
+                    </th>
+                    <th className="border p-1.5 text-left text-xs font-medium">
+                      COST
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="text-xs">
+                  {flights.map((flight, index) => (
+                    <tr key={index}>
+                      <td className="border p-1.5">
+                        <div>{flight.flight_number}</div>
+                        <div className="text-gray-500">Ok to fly</div>
+                        <div className="text-gray-500">Operated by:</div>
+                        <div>{flight.airline}</div>
+                      </td>
+                      <td className="border p-1.5">
+                        <div>{flight.destination_from}</div>
+                        <div>{formatDateToDMY(flight.date)}</div>
+                        <div>{ToAMPM(flight.time_boarding)}</div>
+                      </td>
+                      <td className="border p-1.5">
+                        <div>{flight.destination_to}</div>
+                        <div>{formatDateToDMY(flight.date)}</div>
+                        <div>{ToAMPM(flight.time_arriving)}</div>
+                      </td>
+                      <td className="border p-1.5">
+                        <div>{flight.cabinClassSeat}</div>
+                      </td>
+                      <td className="border p-1.5">
+                        {flight.includedBaggage}kg
+                      </td>
+                      <td className="border p-1.5">
+                        <div>
+                          $
+                          {formatNumberWithThousandSeparator(
+                            Number(flight.cost || 0) * 1.1
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                  {/* Grand Total Row */}
+                  <tr className="font-semibold bg-gray-100">
+                    <td colSpan={5} className="border p-1.5 text-right">
+                      Grand Total
                     </td>
                     <td className="border p-1.5">
-                      <div>{flight.destination_from}</div>
-                      <div>{formatDateToDMY(flight.date)}</div>
-                      <div>{ToAMPM(flight.time_boarding)}</div>
-                    </td>
-                    <td className="border p-1.5">
-                      <div>{flight.destination_to}</div>
-                      <div>{formatDateToDMY(flight.date)}</div>
-                      <div>{ToAMPM(flight.time_arriving)}</div>
-                    </td>
-                    <td className="border p-1.5">
-                      <div>{flight.cabinClassSeat}</div>
-                    </td>
-                    <td className="border p-1.5">{flight.includedBaggage}kg</td>
-                    <td className="border p-1.5">
-                      <div>
-                        $
-                        {formatNumberWithThousandSeparator(
-                          Number(flight.cost || 0) * 1.1
-                        )}
-                      </div>
+                      $
+                      {formatNumberWithThousandSeparator(
+                        flights.reduce(
+                          (total, flight) =>
+                            total + Number(flight.cost || 0) * 1.1,
+                          0
+                        )
+                      )}
                     </td>
                   </tr>
-                ))}
-                {/* Grand Total Row */}
-                <tr className="font-semibold bg-gray-100">
-                  <td colSpan={5} className="border p-1.5 text-right">
-                    Grand Total
-                  </td>
-                  <td className="border p-1.5">
-                    $
-                    {formatNumberWithThousandSeparator(
-                      flights.reduce(
-                        (total, flight) =>
-                          total + Number(flight.cost || 0) * 1.1,
-                        0
-                      )
-                    )}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        )}
+                </tbody>
+              </table>
+            </div>
+          )}
 
         {/* Accommodation Details */}
         {accommodations &&
@@ -410,6 +418,21 @@ const Invoice = ({ data, onEdit, misc }) => {
                     DESCRIPTION
                   </th>
                   <th className="border p-1.5 text-left text-xs font-medium">
+                    DATE
+                  </th>
+                  <th className="border p-1.5 text-left text-xs font-medium">
+                    FROM
+                  </th>
+                  <th className="border p-1.5 text-left text-xs font-medium">
+                    TO
+                  </th>
+                  <th className="border p-1.5 text-left text-xs font-medium">
+                    BOARDING TIME
+                  </th>
+                  <th className="border p-1.5 text-left text-xs font-medium">
+                    ARRIVAL TIME
+                  </th>
+                  <th className="border p-1.5 text-left text-xs font-medium">
                     TOTAL COST
                   </th>
                 </tr>
@@ -417,6 +440,11 @@ const Invoice = ({ data, onEdit, misc }) => {
               <tbody className="text-xs">
                 <tr>
                   <td className="border p-1.5">{misc.misc_text}</td>
+                  <td className="border p-1.5">{misc.misc_date}</td>
+                  <td className="border p-1.5">{misc.destination_from}</td>
+                  <td className="border p-1.5">{misc.destination_to}</td>
+                  <td className="border p-1.5">{misc.time_boarding}</td>
+                  <td className="border p-1.5">{misc.time_arriving}</td>
                   <td className="border p-1.5">
                     ${formatNumberWithThousandSeparator(misc_cost * 1.1)}
                   </td>
@@ -461,14 +489,14 @@ const Invoice = ({ data, onEdit, misc }) => {
           <button
             type="reset"
             onClick={onEdit}
-             className="border border-green-500 p-2 px-5 rounded-xl bg-white hover:bg-green-100 text-sm font-medium text-green-600 hover:text-green-800 transition-all duration-300 active:scale-90 flex items-center justify-center gap-1"
+            className="border border-green-500 p-2 px-5 rounded-xl bg-white hover:bg-green-100 text-sm font-medium text-green-600 hover:text-green-800 transition-all duration-300 active:scale-90 flex items-center justify-center gap-1"
           >
             Edit
           </button>
           <button
             type="button"
             onClick={() => window.print()}
-             className="border border-indigo-500 p-2 px-5 rounded-xl bg-white hover:bg-indigo-100 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-all duration-300 active:scale-90 flex items-center justify-center gap-1"
+            className="border border-indigo-500 p-2 px-5 rounded-xl bg-white hover:bg-indigo-100 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-all duration-300 active:scale-90 flex items-center justify-center gap-1"
           >
             Print
           </button>
