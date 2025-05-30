@@ -53,7 +53,7 @@ const Invoice = ({ data, onEdit, misc }) => {
   const misc_cost = Number(misc?.misc_cost || 0).toFixed(2);
 
   // GST and total calculations
-  const GST = misc?.GST === true ? 1.1 : 1;
+  const GST = misc?.GST === true ? 11 : 0;
 
   const total_cost = (
     Number.parseFloat(total_flight_cost) * 1.1 +
@@ -62,7 +62,7 @@ const Invoice = ({ data, onEdit, misc }) => {
     Number.parseFloat(misc_cost) * 1.1
   ).toFixed(2);
 
-  const total_cost_with_gst = (Number.parseFloat(total_cost) * GST).toFixed(2);
+  const total_cost_with_gst = (Number.parseFloat(total_cost) / GST).toFixed(2);
 
   return (
     <div className="w-full max-w-5xl mx-auto bg-white p-4 md:p-0 min-h-screen">
@@ -440,7 +440,9 @@ const Invoice = ({ data, onEdit, misc }) => {
               <tbody className="text-xs">
                 <tr>
                   <td className="border p-1.5">{misc.misc_text}</td>
-                  <td className="border p-1.5">{formatDateToDMY(misc.misc_date)}</td>
+                  <td className="border p-1.5">
+                    {formatDateToDMY(misc.misc_date)}
+                  </td>
                   <td className="border p-1.5">{misc.destination_from}</td>
                   <td className="border p-1.5">{misc.destination_to}</td>
                   <td className="border p-1.5">{misc.time_boarding}</td>
@@ -464,8 +466,9 @@ const Invoice = ({ data, onEdit, misc }) => {
                 <td className="border p-1.5">
                   $
                   {formatNumberWithThousandSeparator(
-                    Number.parseFloat(total_cost_with_gst) -
-                      Number.parseFloat(total_cost)
+                    misc?.GST === true
+                      ? Number.parseFloat(total_cost_with_gst)
+                      : 0
                   )}
                 </td>
               </tr>
